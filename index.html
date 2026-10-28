@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FAF9F6">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LoopBoard – E-waste recycling & pickup</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{color-scheme:light;--bg:#FAF9F6;--surf:#FFFFFF;--ink:#242D28;--mute:#59645D;--line:#DADFD8;--board:#315C47;--on-board:#FFFFFF;--accent:#315C47;--soft:#EDF2EA;--focus:#315C47}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-padding-top:84px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',Figtree,sans-serif;line-height:1.08;margin:0;letter-spacing:-.025em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;min-height:76px;gap:20px}
+.logo{font:800 22px 'Bricolage Grotesque',sans-serif;text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo i{width:22px;height:22px;border:3px solid var(--accent);border-radius:50%;position:relative}
+.logo i::after{content:'';position:absolute;inset:3px;background:var(--accent);border-radius:50%}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-weight:500;font-size:15px}
+nav ul a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:var(--mute)}
+nav ul a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;background:var(--board);color:var(--on-board);border:1px solid transparent;border-radius:6px;padding:12px 21px;font:600 16px Figtree,sans-serif;line-height:1.3;text-align:center;text-decoration:none;cursor:pointer}
+.btn:hover{background:#244735}
+.hero{padding:60px 0 48px;background:#E4ECD8}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+h1{font-size:clamp(40px,6vw,64px);font-weight:800;max-width:12ch;text-wrap:balance}
+.lead{font-size:18px;color:var(--mute);max-width:46ch;margin:20px 0 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn.ghost{background:transparent;color:var(--ink);border-color:#8B958C}
+.btn.ghost:hover{background:var(--soft)}
+.device-scene{display:block;width:min(100%,420px);height:auto;margin:28px 0 0}
+.calc{background:var(--surf);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:28px}
+.calc h2{font-size:26px}
+.calc p{margin:8px 0 22px;color:var(--mute);font-size:15px}
+.calc label{font-weight:600;font-size:14px;display:block;margin-bottom:6px}
+.row{display:flex;gap:12px;margin-bottom:20px}
+.row>div{min-width:0}
+select,input,textarea{width:100%;min-height:46px;font:500 16px Figtree,sans-serif;padding:11px 12px;border-radius:6px;border:1px solid #8B958C;background:var(--surf);color:var(--ink)}
+textarea{resize:vertical}
+input[aria-invalid=true],textarea[aria-invalid=true]{border-color:#B3261E}
+.out{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--soft);border-radius:8px;padding:4px 16px}
+.out div{padding:16px 0;min-width:0}
+.out div:nth-child(odd){padding-right:12px}
+.out div:nth-child(n+3){border-top:1px solid #D2DCCE}
+.out b{display:block;font:700 29px 'Bricolage Grotesque',sans-serif;color:var(--accent);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.out span{font-size:13px;color:#4C5C50}
+.calc .note{font-size:13px;line-height:1.55;color:var(--mute);margin:18px 0 0}
+section{padding:64px 0}
+.sec-h{font-size:clamp(30px,4vw,44px);margin-bottom:12px;max-width:24ch;text-wrap:balance}
+.sub{color:var(--mute);max-width:56ch;margin:0 0 36px}
+.band{background:var(--surf);border-block:1px solid var(--line)}
+.impact-band{background:#F0E2C9;border-color:#DCD2BD}
+.impact-band .stats div{border-color:#C6BAA4}
+.stats{display:grid;grid-template-columns:repeat(3,1fr)}
+.stats div{padding:4px 28px;border-left:1px solid var(--line)}
+.stats div:first-child{padding-left:0;border-left:0}
+.stats b{font:700 36px 'Bricolage Grotesque',sans-serif;display:block;margin-bottom:8px}
+.stats span{color:var(--mute);font-size:14px;line-height:1.6}
+.acc{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.acc article{min-width:0}
+.device-art{display:block;width:100%;height:120px;background:#E1EAD7;border-radius:8px;margin-bottom:20px}
+.acc article:nth-child(2) .device-art{background:#DEE8E9}
+.acc article:nth-child(3) .device-art{background:#F1DFCD}
+.acc article:nth-child(4) .device-art{background:#ECE5D1}
+.acc h3{font-size:20px;margin-bottom:8px}
+.acc p{margin:0;color:var(--mute);font-size:15px}
+.acc .no{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;margin-top:8px;display:grid;grid-template-columns:1fr 3fr;gap:24px}
+.acc .no h3{font-size:18px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:s}
+.steps li{counter-increment:s;padding-top:18px;border-top:1px solid var(--line)}
+.steps li::before{content:'0' counter(s);display:block;color:#8C4B33;font:700 20px 'Bricolage Grotesque',sans-serif;margin-bottom:16px}
+.steps h3{font-size:20px;margin:0 0 8px}.steps p{margin:0;color:var(--mute);font-size:15px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+form{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:26px;display:grid;gap:14px}
+form label{font-weight:600;font-size:14px;display:block;margin-bottom:5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.two>div{min-width:0}
+.err{color:#B3261E;font-size:13px;min-height:16px}
+.form-note{font-size:13px;line-height:1.5;color:var(--mute);margin:0}
+.ok{background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:30px}
+.ok h3{font-size:26px;margin-bottom:8px}.ok code{background:var(--surf);padding:3px 9px;border-radius:4px;color:var(--accent);font-size:18px}
+.tips{padding-left:18px;color:var(--mute)}.tips li{margin-bottom:8px}.tips b{color:var(--ink)}
+details{border-bottom:1px solid var(--line);padding:16px 0}
+summary{font:700 19px/1.45 'Bricolage Grotesque',sans-serif;cursor:pointer;padding:4px 0}
+details p{color:var(--mute);margin:10px 0 0;max-width:64ch}
+footer{background:#DCE7D3;border-top:1px solid #BECDB6;color:var(--ink);padding:40px 0 34px;font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer p{margin:0;color:var(--mute);max-width:48ch}
+.hero h1 span{color:#8C4B33}
+.calc{border-color:#BAC9AC}
+.out{background:#EAF0E2}
+.process-band{background:#E9EFE5;border-color:#D1DDC9}
+.process-band .steps li{border-color:#BACBB0}
+#pickup{background:#F3E4D6;border-block:1px solid #E2CEBD}
+#pickup .sub,#pickup .tips{color:#545A50}
+#pickup form{border-color:#CDBBA9}
+.btn{transition:transform 120ms ease-out}
+.btn:active{transform:translateY(1px) scale(.98)}
+.btn:disabled{opacity:.65;cursor:wait;transform:none}
+.form-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+form:focus-within,.calc:focus-within{border-color:var(--accent)}
+details[open] summary{color:var(--accent)}
+@media(prefers-reduced-motion:no-preference){
+  .loop-path{stroke-dasharray:90;stroke-dashoffset:0;animation:trace-loop 1100ms cubic-bezier(.16,1,.3,1) both}
+  .scene-leaves{transform-origin:392px 104px;animation:leaf-settle 2200ms ease-in-out 2}
+  details[open] p{animation:answer-in 180ms ease-out}
+}
+@keyframes trace-loop{from{stroke-dashoffset:90}to{stroke-dashoffset:0}}
+@keyframes leaf-settle{0%,100%{transform:rotate(0)}35%{transform:rotate(-3deg)}70%{transform:rotate(2deg)}}
+@keyframes answer-in{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:860px){.hero .wrap,.split{grid-template-columns:1fr}.hero .wrap{gap:36px}.steps{grid-template-columns:1fr 1fr;gap:32px 24px}.acc{grid-template-columns:1fr 1fr}.acc .no{grid-template-columns:1fr}.stats{grid-template-columns:1fr;gap:24px}.stats div{padding:0;border-left:0}.stats div+div{border-top:1px solid var(--line);padding-top:24px}nav ul{display:none}h1{max-width:16ch}.device-scene{width:360px;max-width:100%}}
+@media(max-width:480px){.wrap{padding:0 20px}nav{gap:10px;min-height:68px}.logo{font-size:20px}.hero{padding:38px 0 40px}.hero .wrap{gap:28px}.lead{font-size:17px}.calc,form{padding:20px}.steps,.two{grid-template-columns:1fr}.acc{gap:28px 18px}.acc h3{font-size:18px}.device-art{height:100px}.out{padding:4px 12px}.out b{font-size:26px}section{padding:48px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}.btn:active{transform:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav>
+<a class="logo" href="#top"><i aria-hidden="true"></i>LoopBoard</a>
+<ul><li><a href="#accept">What we take</a></li><li><a href="#how">How it works</a></li><li><a href="#pickup">Book pickup</a></li><li><a href="#faq">FAQ</a></li></ul>
+<a class="btn" href="#pickup" style="padding:9px 16px;font-size:15px">Book a pickup</a>
+</nav></div></header>
+
+<main id="top">
+<div class="hero"><div class="wrap">
+<div>
+<h1>A <span>new life</span> for your old devices.</h1>
+<p class="lead">Old phones, laptops and chargers still have useful materials inside. We collect them from your door for reuse or recycling, keeping valuable metals in use and hazardous waste out of the soil.</p>
+<div class="cta"><a class="btn" href="#pickup">Book a free pickup</a><a class="btn ghost" href="#accept">See what we accept</a></div>
+<svg class="device-scene" viewBox="0 0 440 142" fill="none" stroke="#52634F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M8 128h424" stroke="#BCC7B7"/>
+<rect x="62" y="35" width="139" height="82" rx="5" fill="#DBE4D4"/><path d="M70 43h123v65H70z" fill="#FAF9F6"/><path d="M62 117l-19 11h177l-19-11z" fill="#B6CAB3"/><path d="M117 122h30"/>
+<rect x="232" y="59" width="43" height="69" rx="5" fill="#FAF9F6"/><path d="M238 67h31v47h-31z" fill="#DBE4D4"/><path d="M250 121h7"/>
+<path d="M303 84h69v44h-69z" fill="#E7D4BF"/><path d="M303 84l13-12h45l11 12m-35 0v15l7-4 7 4V84"/><path d="M319 112h19"/>
+<g class="scene-leaves"><path d="M392 104V55m0 28c-17 0-24-13-24-23 15-1 24 8 24 23z" fill="#B6CAB3"/><path d="M392 69c0-17 10-27 24-27 0 16-9 27-24 27z" fill="#DBE4D4"/></g><path d="M377 104h30l-5 24h-20z" fill="#FAF9F6"/>
+<path class="loop-path" d="M214 22c23-6 47-1 61 14m-1-12 1 12-12-1" stroke="#8C4B33"/>
+</svg>
+</div>
+<div class="calc" role="group" aria-labelledby="ct">
+<h2 id="ct">What can be recovered?</h2>
+<p>Pick a device and how many you have.</p>
+<div class="row"><div style="flex:2"><label for="dev">Device</label><select id="dev"></select></div>
+<div style="flex:1"><label for="qty">Quantity</label><input id="qty" type="number" min="1" max="999" value="3"></div></div>
+<div class="out" aria-live="polite">
+<div><b id="o-cu">0 g</b><span>Copper recoverable</span></div>
+<div><b id="o-au">0 mg</b><span>Gold recoverable</span></div>
+<div><b id="o-pl">0 g</b><span>Plastics and glass</span></div>
+<div><b id="o-co">0 kg</b><span>CO₂ avoided (rough)</span></div>
+</div>
+<p class="note">Indicative averages from published e-waste composition studies. Real yield varies by model and age.</p>
+</div>
+</div></div>
+
+<div class="band impact-band"><section style="padding:44px 0"><div class="wrap stats">
+<div><b>62 million t</b><span>of e-waste the world generated in 2022, and under a quarter was formally recycled (UN Global E-waste Monitor).</span></div>
+<div><b>~100×</b><span>more gold per tonne in circuit boards than in typical gold ore, often cited by recycling researchers.</span></div>
+<div><b>0 landfill</b><span>is our rule: everything we collect goes to an authorised recycler.</span></div>
+</div></section></div>
+
+<section id="accept"><div class="wrap">
+<h2 class="sec-h">A plug, a battery, a second life.</h2>
+<p class="sub">If it’s electronic and you no longer use it, it probably belongs here. Working devices get a second life through refurbishers first.</p>
+<div class="acc">
+<article><svg class="device-art" viewBox="0 0 220 125" fill="none" stroke="#52634F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="56" y="16" width="67" height="91" rx="6" fill="#DBE4D4"/><rect x="62" y="23" width="55" height="71" rx="2" fill="#FAF9F6"/><path d="M85 100h9"/><rect x="123" y="39" width="39" height="70" rx="5" fill="#FAF9F6"/><path d="M129 48h27v48h-27z" fill="#B6CAB3"/><path d="M139 103h7"/></svg><h3>Phones and tablets</h3><p>Smartphones, feature phones, tablets, e-readers. Please sign out and factory reset first.</p></article>
+<article><svg class="device-art" viewBox="0 0 220 125" fill="none" stroke="#52634F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M48 29a4 4 0 0 1 4-4h113a4 4 0 0 1 4 4v66H48z" fill="#DBE4D4"/><path d="M55 33h107v54H55z" fill="#FAF9F6"/><path d="M48 95l-17 13h155l-17-13z" fill="#B6CAB3"/><path d="M94 100h29"/><path d="M69 75l20-23 21 16 26-24" stroke="#6C8A65"/></svg><h3>Computers</h3><p>Laptops, desktops, monitors, keyboards, hard drives and routers.</p></article>
+<article><svg class="device-art" viewBox="0 0 220 125" fill="none" stroke="#52634F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="34" y="25" width="123" height="73" rx="5" fill="#DBE4D4"/><rect x="41" y="32" width="109" height="58" rx="2" fill="#FAF9F6"/><path d="M77 109h39m-20-11v11"/><rect x="167" y="42" width="29" height="66" rx="3" fill="#E7D4BF"/><circle cx="181" cy="58" r="5"/><circle cx="181" cy="85" r="10" fill="#FAF9F6"/></svg><h3>Home appliances</h3><p>Small kitchen appliances, TVs, fans, irons, set-top boxes, speakers.</p></article>
+<article><svg class="device-art" viewBox="0 0 220 125" fill="none" stroke="#52634F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="42" y="33" width="47" height="58" rx="6" fill="#E7D4BF"/><path d="M53 33V19m22 14V19m-9 72v9c0 18 47 18 47-2V65c0-20 48-20 48 0v23"/><rect x="148" y="88" width="27" height="21" rx="3" fill="#DBE4D4"/><path d="M155 88V77h13v11"/><path d="M52 55h27" stroke="#A07954"/></svg><h3>Cables and chargers</h3><p>Chargers, power banks, headphones, wires and adapters of every kind.</p></article>
+<article class="no"><h3>Handle with care</h3><p>Swollen or leaking batteries, broken CRTs and tube lights: tell us in the form and we’ll send a trained handler.</p></article>
+</div></div></section>
+
+<div class="band process-band"><section id="how"><div class="wrap">
+<h2 class="sec-h">From your shelf to a new product in four steps.</h2>
+<p class="sub">Start with a pickup request. The collection team confirms availability and your preferred date.</p>
+<ol class="steps">
+<li><h3>Book</h3><p>Tell us what you have and pick a date. It takes about a minute.</p></li>
+<li><h3>We collect</h3><p>A verified collector picks everything up and weighs it with you.</p></li>
+<li><h3>Sort and wipe</h3><p>Working devices are data-wiped and refurbished. The rest is dismantled by type.</p></li>
+<li><h3>Recover</h3><p>Authorised recyclers extract metals and plastics for use in new products.</p></li>
+</ol></div></section></div>
+
+<section id="pickup"><div class="wrap split">
+<div>
+<h2 class="sec-h">Book a free pickup.</h2>
+<p class="sub">Free for households with 5 or more items. Smaller loads can use a drop-off point.</p>
+<ul class="tips">
+<li><b>Wipe your data.</b> Sign out of accounts and reset phones and laptops.</li>
+<li><b>Remove loose batteries</b> and keep them in a separate bag.</li>
+<li><b>Keep items together</b> near your door so collection takes minutes.</li>
+<li><b>Need a data-destruction certificate?</b> Mention it in the notes.</li>
+</ul>
+</div>
+<div id="fw">
+<form id="pf" novalidate>
+<div class="two"><div><label for="nm">Full name</label><input id="nm" aria-describedby="e-nm" required minlength="2" maxlength="100" autocomplete="name"><div class="err" id="e-nm" aria-live="polite"></div></div>
+<div><label for="ph">Phone number</label><input id="ph" aria-describedby="e-ph" required type="tel" pattern="[6-9][0-9]{9}" maxlength="20" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile"><div class="err" id="e-ph" aria-live="polite"></div></div></div>
+<div><label for="ad">Pickup address</label><textarea id="ad" aria-describedby="e-ad" required minlength="8" maxlength="1000" rows="2" autocomplete="street-address"></textarea><div class="err" id="e-ad" aria-live="polite"></div></div>
+<div class="two"><div><label for="it">Item type</label><select id="it" aria-describedby="e-it"><option>Mixed e-waste</option><option>Phones and tablets</option><option>Computers</option><option>Home appliances</option><option>Batteries and chargers</option></select><div class="err" id="e-it" aria-live="polite"></div></div>
+<div><label for="dt">Preferred date</label><input id="dt" aria-describedby="e-dt" required type="date"><div class="err" id="e-dt" aria-live="polite"></div></div></div>
+<div><label for="nt">Notes (optional)</label><input id="nt" aria-describedby="e-nt" maxlength="1000" placeholder="e.g. 2 old TVs, need data-wipe certificate"><div class="err" id="e-nt" aria-live="polite"></div></div>
+<div class="form-trap" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" tabindex="-1" autocomplete="off"></div>
+<p class="form-note">We’ll use these details to contact you about collection. Your preferred date is confirmed separately.</p>
+<div class="err" id="submit-error" role="alert"></div>
+<button class="btn" id="submit-pickup" type="submit">Request pickup</button>
+</form>
+<div class="ok" id="pickup-success" tabindex="-1" hidden>
+<h3>Pickup request received.</h3>
+<p>Thanks, <span id="pickup-name"></span>. Your preferred date is <b id="pickup-date"></b>. The collection team will contact you to confirm availability.</p>
+<p>Your reference: <code id="pickup-reference"></code></p>
+<button class="btn" id="again" type="button">Request another pickup</button>
+</div></div>
+</div></section>
+
+<div class="band"><section id="faq"><div class="wrap" style="max-width:820px">
+<h2 class="sec-h">Common questions</h2>
+<details><summary>Why can’t I just put old electronics in the bin?</summary><p>Circuit boards and batteries contain lead, cadmium, mercury and flame retardants that leach into soil and water in landfills. Burning them releases toxic fumes. In India, the E-Waste (Management) Rules, 2022 also make proper disposal the legal route for producers and bulk consumers.</p></details>
+<details><summary>Is my personal data safe?</summary><p>Wipe your device before handing it over. For storage devices we physically shred drives, and we can issue a destruction certificate on request.</p></details>
+<details><summary>Do you pay for devices?</summary><p>Working phones and laptops with resale value can earn a credit. Broken items are collected free; we don’t charge households for recycling.</p></details>
+<details><summary>What about companies and schools?</summary><p>We run scheduled bulk collections with weight reports and recycling certificates that support your sustainability reporting. Use the form and add “bulk” in the notes.</p></details>
+<details><summary>What happens to the plastics and glass?</summary><p>Plastics are sorted by polymer and shredded for reuse in non-food products. Glass and metals go to smelters and refiners.</p></details>
+</div></section></div>
+</main>
+
+<footer><div class="wrap">
+<div><div class="logo"><i aria-hidden="true"></i>LoopBoard</div><p style="margin-top:10px">Collecting e-waste from homes, schools and offices, and keeping it out of landfills.</p></div>
+<p>A student project on e-waste management. Figures are indicative; check your local rules and authorised recyclers before disposing of devices.</p>
+</div></footer>
+
+<script>
+var D={"Smartphone":[15,34,60,45],"Laptop":[120,230,900,250],"Desktop PC":[300,200,4500,400],"Tablet":[25,60,250,90],"LED TV (32 in)":[200,100,5000,300],"Charger or cable":[8,0,40,5],"Power bank":[10,5,120,20]};
+var dev=document.getElementById('dev'),qty=document.getElementById('qty');
+Object.keys(D).forEach(function(k){var o=document.createElement('option');o.textContent=k;dev.appendChild(o)});
+function fmt(n,u){return (n>=1000&&u==='g'?(n/1000).toFixed(1)+' kg':Math.round(n).toLocaleString('en-IN')+' '+u)}
+function calc(){var q=Math.max(0,Math.min(999,parseInt(qty.value)||0)),d=D[dev.value];
+document.getElementById('o-cu').textContent=fmt(d[0]*q,'g');
+document.getElementById('o-au').textContent=fmt(d[1]*q,'mg');
+document.getElementById('o-pl').textContent=fmt(d[2]*q,'g');
+document.getElementById('o-co').textContent=Math.round(d[3]*q).toLocaleString('en-IN')+' kg'}
+dev.onchange=calc;qty.oninput=calc;calc();
+</script>
+<script src="config.js"></script>
+<script src="booking.js"></script>
+</body>
+</html>
